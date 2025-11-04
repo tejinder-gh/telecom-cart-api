@@ -1,0 +1,11 @@
+.claude/api.md is a trimmed version of my api specification template file I generally use for my AI-assistant. For your context, I have removed elements such as:
+- API versioning
+- db related
+- authentication related
+- some error handling specifications
+- middlewares related
+- request tagging
+- audit logging
+- request lifecycle management including time tracking
+- rate limiting
+- some of the health checks such as db ping and redis ping

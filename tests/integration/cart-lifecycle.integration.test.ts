@@ -12,15 +12,10 @@ jest.mock('nanoid', () => ({
 }));
 
 import request from 'supertest';
-import { createApp } from '../../src/app';
-import { Application } from 'express';
+import { getTestApp } from '../setup/app-instance';
 
 describe('Cart Lifecycle - Integration Tests', () => {
-  let app: Application;
-
-  beforeAll(() => {
-    app = createApp();
-  });
+  const app = getTestApp();
 
   it('should initialize a new cart', async () => {
     const response = await request(app).post('/api/v1/carts');

@@ -11,15 +11,10 @@ jest.mock('nanoid', () => ({
 }));
 
 import request from 'supertest';
-import { createApp } from '../../src/app';
-import { Application } from 'express';
+import { getTestApp } from '../setup/app-instance';
 
 describe('Products API - Integration Tests', () => {
-  let app: Application;
-
-  beforeAll(() => {
-    app = createApp();
-  });
+  const app = getTestApp();
 
   it('should get all products', async () => {
     const response = await request(app).get('/api/v1/products');

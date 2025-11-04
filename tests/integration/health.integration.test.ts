@@ -11,15 +11,10 @@ jest.mock('nanoid', () => ({
 }));
 
 import request from 'supertest';
-import { createApp } from '../../src/app';
-import { Application } from 'express';
+import { getTestApp } from '../setup/app-instance';
 
 describe('Health Endpoint - Integration Tests', () => {
-  let app: Application;
-
-  beforeAll(() => {
-    app = createApp();
-  });
+  const app = getTestApp();
 
   it('should return 200 for health endpoint', async () => {
     const response = await request(app).get('/health');

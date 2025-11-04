@@ -17,7 +17,7 @@ const config_1 = __importDefault(require("../config"));
 /**
  * Global error handler middleware
  */
-function errorHandler(error, req, res, next) {
+function errorHandler(error, req, res, _next) {
     // Log error in development
     if (config_1.default.server.env === 'development') {
         console.error('Error:', error);
@@ -74,7 +74,7 @@ function errorHandler(error, req, res, next) {
 /**
  * 404 Not Found handler
  */
-function notFoundHandler(req, res, next) {
+function notFoundHandler(req, res, _next) {
     const problemDetail = {
         title: 'Not Found',
         status: 404,

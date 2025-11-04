@@ -5,7 +5,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { ZodError, z } from 'zod';
+import { z } from 'zod';
 import {
   errorHandler,
   notFoundHandler,

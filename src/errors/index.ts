@@ -12,18 +12,15 @@ import { ErrorDetail } from '../types';
  */
 export class APIError extends Error {
   public readonly statusCode: number;
-  public readonly type: string;
   public readonly isOperational: boolean;
 
   constructor(
     message: string,
     statusCode: number,
-    type: string,
     isOperational = true
   ) {
     super(message);
     this.statusCode = statusCode;
-    this.type = type;
     this.isOperational = isOperational;
 
     Error.captureStackTrace(this, this.constructor);
@@ -37,11 +34,7 @@ export class ValidationError extends APIError {
   public readonly errors: ErrorDetail[];
 
   constructor(errors: ErrorDetail[]) {
-    super(
-      'Validation Error',
-      400,
-      'https://api.example.com/errors/validation-error'
-    );
+    super('Validation Error', 400);
     this.errors = errors;
   }
 }
@@ -51,11 +44,7 @@ export class ValidationError extends APIError {
  */
 export class NotFoundError extends APIError {
   constructor(resource: string, id: string) {
-    super(
-      `${resource} with ID '${id}' does not exist`,
-      404,
-      'https://api.example.com/errors/not-found'
-    );
+    super(`${resource} with ID '${id}' does not exist`, 404);
   }
 }
 
@@ -64,7 +53,7 @@ export class NotFoundError extends APIError {
  */
 export class ConflictError extends APIError {
   constructor(message: string) {
-    super(message, 409, 'https://api.example.com/errors/conflict');
+    super(message, 409);
   }
 }
 
@@ -73,11 +62,7 @@ export class ConflictError extends APIError {
  */
 export class UnprocessableEntityError extends APIError {
   constructor(message: string) {
-    super(
-      message,
-      422,
-      'https://api.example.com/errors/unprocessable-entity'
-    );
+    super(message, 422);
   }
 }
 
@@ -86,7 +71,7 @@ export class UnprocessableEntityError extends APIError {
  */
 export class InternalServerError extends APIError {
   constructor(message = 'An unexpected error occurred') {
-    super(message, 500, 'https://api.example.com/errors/internal-error', false);
+    super(message, 500, false);
   }
 }
 
@@ -95,7 +80,7 @@ export class InternalServerError extends APIError {
  */
 export class GatewayTimeoutError extends APIError {
   constructor(message = 'Upstream service timeout') {
-    super(message, 504, 'https://api.example.com/errors/gateway-timeout', false);
+    super(message, 504, false);
   }
 }
 
@@ -104,6 +89,6 @@ export class GatewayTimeoutError extends APIError {
  */
 export class BadRequestError extends APIError {
   constructor(message: string) {
-    super(message, 400, 'https://api.example.com/errors/bad-request');
+    super(message, 400);
   }
 }

@@ -25,7 +25,6 @@ function errorHandler(error, req, res, next) {
     // Zod validation errors
     if (error instanceof zod_1.ZodError) {
         const problemDetail = {
-            type: 'https://api.example.com/errors/validation-error',
             title: 'Validation Error',
             status: 400,
             detail: 'One or more fields failed validation',
@@ -46,7 +45,6 @@ function errorHandler(error, req, res, next) {
     // Custom API errors
     if (error instanceof errors_1.APIError) {
         const problemDetail = {
-            type: error.type,
             title: error.message,
             status: error.statusCode,
             detail: error.message,
@@ -61,7 +59,6 @@ function errorHandler(error, req, res, next) {
     // Unexpected errors (don't leak internal details in production)
     console.error('Unexpected error:', error);
     const problemDetail = {
-        type: 'https://api.example.com/errors/internal-error',
         title: 'Internal Server Error',
         status: 500,
         detail: config_1.default.server.env === 'development'
@@ -79,7 +76,6 @@ function errorHandler(error, req, res, next) {
  */
 function notFoundHandler(req, res, next) {
     const problemDetail = {
-        type: 'https://api.example.com/errors/not-found',
         title: 'Not Found',
         status: 404,
         detail: `The requested endpoint '${req.path}' does not exist`,

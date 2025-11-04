@@ -21,7 +21,6 @@ export function validateBody<T>(schema: ZodSchema<T>) {
     } catch (error) {
       if (error instanceof z.ZodError) {
         const problemDetail = {
-          type: 'https://api.example.com/errors/validation-error',
           title: 'Validation Error',
           status: 400,
           detail: 'One or more fields failed validation',
@@ -58,7 +57,6 @@ export function validateParams<T>(schema: ZodSchema<T>) {
     } catch (error) {
       if (error instanceof z.ZodError) {
         const problemDetail = {
-          type: 'https://api.example.com/errors/validation-error',
           title: 'Validation Error',
           status: 400,
           detail: 'Invalid path parameters',
@@ -95,7 +93,6 @@ export function validateQuery<T>(schema: ZodSchema<T>) {
     } catch (error) {
       if (error instanceof z.ZodError) {
         const problemDetail = {
-          type: 'https://api.example.com/errors/validation-error',
           title: 'Validation Error',
           status: 400,
           detail: 'Invalid query parameters',

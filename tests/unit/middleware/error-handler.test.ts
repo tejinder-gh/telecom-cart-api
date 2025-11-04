@@ -71,7 +71,6 @@ describe('Error Handler Middleware', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(404);
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining({
-          type: 'https://api.example.com/errors/not-found',
           status: 404,
         })
       );
@@ -113,7 +112,6 @@ describe('Error Handler Middleware', () => {
         expect(mockResponse.status).toHaveBeenCalledWith(400);
         expect(mockResponse.json).toHaveBeenCalledWith(
           expect.objectContaining({
-            type: 'https://api.example.com/errors/validation-error',
             title: 'Validation Error',
             status: 400,
             detail: 'One or more fields failed validation',
@@ -135,7 +133,6 @@ describe('Error Handler Middleware', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(404);
       expect(mockResponse.json).toHaveBeenCalledWith(
         expect.objectContaining({
-          type: 'https://api.example.com/errors/not-found',
           title: 'Not Found',
           status: 404,
         })

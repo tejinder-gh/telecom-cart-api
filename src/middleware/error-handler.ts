@@ -27,7 +27,6 @@ export function errorHandler(
   // Zod validation errors
   if (error instanceof ZodError) {
     const problemDetail = {
-      type: 'https://api.example.com/errors/validation-error',
       title: 'Validation Error',
       status: 400,
       detail: 'One or more fields failed validation',
@@ -51,7 +50,6 @@ export function errorHandler(
   // Custom API errors
   if (error instanceof APIError) {
     const problemDetail = {
-      type: error.type,
       title: error.message,
       status: error.statusCode,
       detail: error.message,
@@ -69,7 +67,6 @@ export function errorHandler(
   console.error('Unexpected error:', error);
 
   const problemDetail = {
-    type: 'https://api.example.com/errors/internal-error',
     title: 'Internal Server Error',
     status: 500,
     detail:
@@ -94,7 +91,6 @@ export function notFoundHandler(
   next: NextFunction
 ): void {
   const problemDetail = {
-    type: 'https://api.example.com/errors/not-found',
     title: 'Not Found',
     status: 404,
     detail: `The requested endpoint '${req.path}' does not exist`,

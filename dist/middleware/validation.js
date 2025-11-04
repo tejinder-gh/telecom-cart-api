@@ -28,7 +28,6 @@ function validateBody(schema) {
         catch (error) {
             if (error instanceof zod_1.z.ZodError) {
                 const problemDetail = {
-                    type: 'https://api.example.com/errors/validation-error',
                     title: 'Validation Error',
                     status: 400,
                     detail: 'One or more fields failed validation',
@@ -63,7 +62,6 @@ function validateParams(schema) {
         catch (error) {
             if (error instanceof zod_1.z.ZodError) {
                 const problemDetail = {
-                    type: 'https://api.example.com/errors/validation-error',
                     title: 'Validation Error',
                     status: 400,
                     detail: 'Invalid path parameters',
@@ -98,7 +96,6 @@ function validateQuery(schema) {
         catch (error) {
             if (error instanceof zod_1.z.ZodError) {
                 const problemDetail = {
-                    type: 'https://api.example.com/errors/validation-error',
                     title: 'Validation Error',
                     status: 400,
                     detail: 'Invalid query parameters',

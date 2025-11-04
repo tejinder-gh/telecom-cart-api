@@ -228,7 +228,6 @@ export async function getProduct(
 
     if (!product) {
       res.status(404).json({
-        type: 'https://api.example.com/errors/not-found',
         title: 'Not Found',
         status: 404,
         detail: `Product with ID '${productId}' does not exist`,

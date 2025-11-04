@@ -37,10 +37,10 @@ export function errorHandler(
       errors:
         config.server.env === 'development'
           ? error.issues.map((err) => ({
-              field: err.path.join('.'),
-              message: err.message,
-              code: err.code,
-            }))
+            field: err.path.join('.'),
+            message: err.message,
+            code: err.code,
+          }))
           : undefined,
     };
 

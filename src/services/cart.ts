@@ -8,7 +8,7 @@
 import { nanoid } from 'nanoid';
 import { Cart, CartItem, Product, SalesforceContext, ValidationResult } from '../types';
 import { SalesforceCartClient } from './salesforce-client';
-import { NotFoundError } from '../errors';
+import { NotFoundError, BadRequestError } from '../errors';
 import {
   calculateItemTotal,
   calculateSubtotal,
@@ -111,10 +111,21 @@ export class CartService {
 
     // Check current items before adding
     const currentItems = await this.sfClient.getCartItems(contextId);
+
+    // Check if product already exists in cart
+    const existingItem = currentItems.find(item => item.productId === productId);
+
+    if (existingItem) {
+      // Product exists - update quantity instead of adding new item
+      const newQuantity = existingItem.quantity + quantity;
+      return this.updateItem(cartId, existingItem.id, newQuantity);
+    }
+
+    // Product doesn't exist - check if we can add this type
     const canAdd = canAddItemType(currentItems, product.type);
 
     if (!canAdd.allowed) {
-      throw new Error(canAdd.reason);
+      throw new BadRequestError(canAdd.reason || 'Cannot add item to cart');
     }
 
     const totalPrice = calculateItemTotal(product.price, quantity);

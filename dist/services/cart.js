@@ -86,9 +86,17 @@ class CartService {
         const contextId = await this.ensureValidContext(cartId);
         // Check current items before adding
         const currentItems = await this.sfClient.getCartItems(contextId);
+        // Check if product already exists in cart
+        const existingItem = currentItems.find(item => item.productId === productId);
+        if (existingItem) {
+            // Product exists - update quantity instead of adding new item
+            const newQuantity = existingItem.quantity + quantity;
+            return this.updateItem(cartId, existingItem.id, newQuantity);
+        }
+        // Product doesn't exist - check if we can add this type
         const canAdd = (0, cart_1.canAddItemType)(currentItems, product.type);
         if (!canAdd.allowed) {
-            throw new Error(canAdd.reason);
+            throw new errors_1.BadRequestError(canAdd.reason || 'Cannot add item to cart');
         }
         const totalPrice = (0, cart_1.calculateItemTotal)(product.price, quantity);
         const newItem = await this.sfClient.addItem(contextId, {

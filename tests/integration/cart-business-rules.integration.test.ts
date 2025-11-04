@@ -40,7 +40,7 @@ describe('Cart Business Rules - Integration Tests', () => {
         quantity: 1,
       });
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
     expect(response.body.detail).toContain('Only one phone is allowed');
   });
 
@@ -68,7 +68,7 @@ describe('Cart Business Rules - Integration Tests', () => {
         quantity: 1,
       });
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
     expect(response.body.detail).toContain('Only one plan is allowed');
   });
 
